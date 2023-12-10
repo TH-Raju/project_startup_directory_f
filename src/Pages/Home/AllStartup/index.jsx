@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const AllStartup = () => {
+  let [filterData, setFilterData] = useState([]);
   const { data: allStartup } = useQuery({
     queryKey: ["categoriyy"],
     queryFn: async () => {
@@ -10,10 +12,123 @@ const AllStartup = () => {
       return data?.getstartup;
     },
   });
-//   console.log(allStartup);
+  //   let loadData = 20;
+  //   let maxData = allStartup?.length;
+  //   const moreData = () => {
+  //     if (loadData >= maxData) {
+  //       loadData = 20;
+  //       console.log(loadData);
+  //     } else {
+  //       loadData += 20;
+  //       console.log( loadData);
+  //     }
+  //   };
+  //   console.log(allStartup);
+  const handleOnchange = (e) => {
+    const industry = e.target.value;
+    // console.log(productName);
+
+    const filterproductName = allStartup?.filter(
+      (item) => item?.IndustryVertical === industry
+    );
+
+    setFilterData(filterproductName);
+    // if (filterproductName) {
+    //   console.log(filterproductName);
+    // }
+  };
+
+  const clearFilter = () => {
+    filterData = [];
+    setFilterData(filterData);
+    // console.log(filterData);
+  };
+
+  const uniqueProductName = [
+    ...new Set(allStartup?.map((order) => order?.IndustryVertical)),
+  ];
+//   console.log(filterData);
+
   return (
     <div>
-      <h1>All Startup List {allStartup?.length}</h1>
+      <h1 className="text-center text-3xl font-bold">List of All Startup </h1>
+      <div className="my-4">
+        <h2 className="text-3xl text-center md:text-5xl font-bold mb-10">
+          All <span className="text-rose-700">Orders</span>
+        </h2>
+        <span className="font-bold ml-4">Filter Data :</span>
+        <select
+          className="select select-primary ml-4 text-black"
+          onChange={handleOnchange}
+        >
+          <option disabled selected>
+            Select
+          </option>
+
+          {uniqueProductName.map((productName, i) => (
+            <option key={i} value={productName} className="text-black">
+              {productName}
+            </option>
+          ))}
+        </select>
+
+        {filterData.length > 0 && (
+          <button className="btn btn-primary  mx-3" onClick={clearFilter}>
+            Reset
+          </button>
+        )}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {filterData.length > 0
+          ? filterData?.slice(0, 2).map((startup) => (
+              <div
+                key={startup._id}
+                className="bg-white p-4 rounded-lg shadow-md"
+              >
+                <h2 className="text-xl font-semibold mb-2">
+                  {startup.StartupName}
+                </h2>
+                <p className="text-gray-600 text-sm mb-2">
+                  {startup.CityLocation}
+                </p>
+                <p className="text-gray-600 text-sm mb-2">
+                  Starting Year: {startup.Date}
+                </p>
+                <p className="text-green-600 text-lg font-bold">
+                  Funding Amount: ${startup.AmountInUSD}
+                </p>
+              </div>
+            ))
+          : allStartup?.slice(0, 20).map((startup) => (
+              <div
+                key={startup._id}
+                className="bg-white p-4 rounded-lg shadow-md"
+              >
+                <h2 className="text-xl font-semibold mb-2">
+                  {startup.StartupName}
+                </h2>
+                <p className="text-gray-600 text-sm mb-2">
+                  {startup.CityLocation}
+                </p>
+                <p className="text-gray-600 text-sm mb-2">
+                  Starting Year: {startup.Date}
+                </p>
+                <p className="text-green-600 text-lg font-bold">
+                  Funding Amount: ${startup.AmountInUSD}
+                </p>
+              </div>
+            ))}
+      </div>
+      {/* <div className="text-center my-10">
+        <button
+          className="btn btn-outline"
+          onClick={() => {
+            moreData();
+          }}
+        >
+          Load More
+        </button>
+      </div> */}
     </div>
   );
 };
