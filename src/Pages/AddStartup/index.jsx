@@ -1,16 +1,35 @@
 /* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
-
+import { useNavigate } from "react-router-dom";
 const AddStartup = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
+  const onSubmit = (data) => {
+    console.log(data);
+    const url = "http://localhost:5000/api/v1/startup/add";
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        if (result.success) {
+          reset();
+          alert("Successfully Added");
+          navigate("/");
+        } else {
+          alert("Something Wrong!");
+        }
+      });
+  };
 
   const date = new Date();
   let day = date.getDate();
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
   let newDate = day + "/" + month + "/" + year;
-//   console.log(newDate);
+  //   console.log(newDate);
   return (
     <div className="w-[80%] mx-auto">
       <h1 className="text-center text-3xl font-bold mb-5">Add New Startup</h1>
@@ -19,7 +38,9 @@ const AddStartup = () => {
           <div className="form-control w-full max-w-xs ">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">Date <span className="text-red-500">*</span></span>
+              <span className=" text-xl font-bold">
+                Date <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -34,7 +55,9 @@ const AddStartup = () => {
           <div className="form-control w-full max-w-xs">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">Startup Name <span className="text-red-500">*</span></span>
+              <span className=" text-xl font-bold">
+                Startup Name <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -49,7 +72,9 @@ const AddStartup = () => {
           <div className="form-control w-full max-w-xs">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">Industry Name <span className="text-red-500">*</span></span>
+              <span className=" text-xl font-bold">
+                Industry Name <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -64,7 +89,9 @@ const AddStartup = () => {
           <div className="form-control w-full max-w-xs">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">Sub Industry Name <span className="text-red-500">*</span></span>
+              <span className=" text-xl font-bold">
+                Sub Industry Name <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -78,7 +105,9 @@ const AddStartup = () => {
           <div className="form-control w-full max-w-xs">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">City Name <span className="text-red-500">*</span></span>
+              <span className=" text-xl font-bold">
+                City Name <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -92,7 +121,9 @@ const AddStartup = () => {
           <div className="form-control w-full max-w-xs">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">Investors Name <span className="text-red-500">*</span></span>
+              <span className=" text-xl font-bold">
+                Investors Name <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -106,7 +137,9 @@ const AddStartup = () => {
           <div className="form-control w-full max-w-xs">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">Investment Type <span className="text-red-500">*</span></span>
+              <span className=" text-xl font-bold">
+                Investment Type <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -120,10 +153,12 @@ const AddStartup = () => {
           <div className="form-control w-full max-w-xs">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">Amount In USD <span className="text-red-500">*</span></span>
+              <span className=" text-xl font-bold">
+                Amount In USD <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="Enter Amount"
               {...register("AmountInUSD", {
                 required: "AmountInUSD is Required",

@@ -57,7 +57,7 @@ const AllStartup = () => {
 
   return (
     <div>
-      <h1 className="text-center text-3xl font-bold">List of All Startup </h1>
+      <h1 className="text-center text-3xl font-bold">All Startup </h1>
       <div className="my-4">
         <span className="font-bold ml-4">Filter Data :</span>
         <select
@@ -88,10 +88,10 @@ const AllStartup = () => {
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {filterData.length > 0
-          ? filterData?.slice(0, 2).map((startup) => (
+          ? filterData?.map((startup) => (
               <div
                 key={startup._id}
-                className="bg-white p-4 rounded-lg shadow-md"
+                className="bg-white border border-sky-400 p-4 rounded-lg shadow-md"
                 onClick={() => document.getElementById(startup._id).showModal()}
               >
                 <h2 className="text-xl font-semibold mb-2">
@@ -108,10 +108,10 @@ const AllStartup = () => {
                 </p>
               </div>
             ))
-          : allStartup?.slice(0, 20).map((startup) => (
+          : allStartup?.map((startup) => (
               <div
                 key={startup._id}
-                className=" bg-white p-4 rounded-lg shadow-md"
+                className=" bg-white p-4 border border-sky-400 rounded-lg shadow-md"
                 onClick={() => document.getElementById(startup._id).showModal()}
               >
                 <h2 className="text-xl font-semibold mb-2">
