@@ -4,26 +4,148 @@ import { useForm } from "react-hook-form";
 const AddStartup = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => console.log(data);
+
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let newDate = day + "/" + month + "/" + year;
+//   console.log(newDate);
   return (
-    <div>
-      <h1>Add New Startup</h1>
+    <div className="w-[80%] mx-auto">
+      <h1 className="text-center text-3xl font-bold mb-5">Add New Startup</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-       <div className="form-control w-full max-w-xs">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="form-control w-full max-w-xs ">
             <label className="label">
               {" "}
-              <span className=" text-xl font-bold">Product Name</span>
+              <span className=" text-xl font-bold">Date <span className="text-red-500">*</span></span>
             </label>
             <input
               type="text"
-              placeholder="Enter Product Name"
-              {...register("name", {
-                required: "Name is Required",
+              value={newDate}
+              {...register("Date", {
+                required: "Date is Required",
               })}
               className="input input-bordered w-full max-w-xs"
             />
-            
           </div>
-        <input type="submit" className="btn btn-success my-4" />
+
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className=" text-xl font-bold">Startup Name <span className="text-red-500">*</span></span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Startup Name"
+              {...register("StartupName", {
+                required: "Date is Required",
+              })}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className=" text-xl font-bold">Industry Name <span className="text-red-500">*</span></span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Industry Name"
+              {...register("IndustryVertical", {
+                required: "IndustryVertical is Required",
+              })}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className=" text-xl font-bold">Sub Industry Name <span className="text-red-500">*</span></span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Sub Industry Name"
+              {...register("SubVertical", {
+                required: "SubVertical is Required",
+              })}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className=" text-xl font-bold">City Name <span className="text-red-500">*</span></span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Startup Location"
+              {...register("CityLocation", {
+                required: "CityLocation is Required",
+              })}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className=" text-xl font-bold">Investors Name <span className="text-red-500">*</span></span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Investors Name"
+              {...register("InvestorsName", {
+                required: "InvestorsName is Required",
+              })}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className=" text-xl font-bold">Investment Type <span className="text-red-500">*</span></span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Investment Type"
+              {...register("InvestmentType", {
+                required: "InvestmentType is Required",
+              })}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className=" text-xl font-bold">Amount In USD <span className="text-red-500">*</span></span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Amount"
+              {...register("AmountInUSD", {
+                required: "AmountInUSD is Required",
+              })}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className=" text-xl font-bold">Remarks </span>
+            </label>
+            <textarea
+              type="text"
+              placeholder="Write Details of your startup"
+              {...register("Remarks")}
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+        </div>
+
+        <input type="submit" className="btn btn-success my-4 px-10" />
       </form>
     </div>
   );
