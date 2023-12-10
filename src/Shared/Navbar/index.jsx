@@ -8,6 +8,11 @@ const Navbar = () => {
           <p>Home</p>
         </Link>
       </li>
+      <li>
+        <Link to="/addstartup">
+          <p>Add New</p>
+        </Link>
+      </li>
     </>
   );
   return (
