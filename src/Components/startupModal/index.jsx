@@ -11,11 +11,30 @@ const StartupModal = ({startup, id}) => {
               ✕
             </button>
           </form>
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            {startup.StartupName}
-            Press ESC key or click on ✕ button to close
-          </p>
+          <h2 className="text-xl font-bold mb-2">
+                  {startup.StartupName}
+                </h2>
+                <p className="text-gray-600 text-sm mb-2">
+                 Industry : {startup.IndustryVertical}
+                </p>
+                <p className="text-gray-600 text-sm mb-2">
+                Sub-Industry : {startup.SubVertical}
+                </p>
+                <p className="text-gray-600 text-sm mb-2">
+                 City Name: {startup.CityLocation}
+                </p>
+                <p className="text-gray-600 text-sm mb-2">
+                  {startup.Remarks}
+                </p>
+                <p className="text-gray-600 text-sm mb-2">
+                  Starting Year: {startup.Date}
+                </p>
+                <p className="text-gray-600 text-sm mb-2">
+                  Investor Name: {startup.InvestorsName}
+                </p>
+                <p className="text-green-600 text-lg font-bold">
+                  Funding Amount: ${startup.AmountInUSD}
+                </p>
         </div>
       </dialog>
     </div>
