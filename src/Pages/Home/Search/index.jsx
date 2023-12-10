@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Link, useLoaderData } from "react-router-dom";
+import StartupModal from "../../../Components/startupModal";
 
 const Search = () => {
   const data = useLoaderData().searchData;
@@ -27,6 +28,7 @@ const Search = () => {
               <p className="text-green-600 text-lg font-bold">
                 Funding Amount: ${startup.AmountInUSD}
               </p>
+              <StartupModal startup={startup} id={startup._id} />
             </div>
           ))
         ) : (

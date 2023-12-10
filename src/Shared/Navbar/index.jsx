@@ -76,7 +76,10 @@ const Navbar = () => {
             />
           </div>
           <div>
-            <button className="btn text-xs" onClick={searchData}>
+            <button
+              className="btn text-xs btn-info ml-2 btn-md "
+              onClick={searchData}
+            >
               Search
             </button>
           </div>

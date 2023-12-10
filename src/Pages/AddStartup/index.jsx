@@ -6,7 +6,8 @@ const AddStartup = () => {
   const navigate = useNavigate();
   const onSubmit = (data) => {
     console.log(data);
-    const url = "http://localhost:5000/api/v1/startup/add";
+    const url =
+      "https://startup-directory-5vyho7snc-th-raju.vercel.app/api/v1/startup/add";
     fetch(url, {
       method: "POST",
       body: JSON.stringify(data),

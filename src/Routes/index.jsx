@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
         path: "/search/:searchTerm",
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5000/api/v1/startup/search?searchTerm=${params.searchTerm}`
+            `https://startup-directory-5vyho7snc-th-raju.vercel.app/api/v1/startup/search?searchTerm=${params.searchTerm}`
           ),
         element: <Search />,
       },

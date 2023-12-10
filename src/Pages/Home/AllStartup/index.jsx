@@ -10,7 +10,9 @@ const AllStartup = () => {
     queryKey: ["categoriyy"],
     queryFn: async () => {
       setLoad(true);
-      const res = await fetch("http://localhost:5000/api/v1/startup");
+      const res = await fetch(
+        "https://startup-directory-5vyho7snc-th-raju.vercel.app/api/v1/startup"
+      );
       const data = await res.json();
       if (data) {
         setLoad(false);
@@ -18,18 +20,7 @@ const AllStartup = () => {
       return data?.getstartup;
     },
   });
-  //   let loadData = 20;
-  //   let maxData = allStartup?.length;
-  //   const moreData = () => {
-  //     if (loadData >= maxData) {
-  //       loadData = 20;
-  //       console.log(loadData);
-  //     } else {
-  //       loadData += 20;
-  //       console.log( loadData);
-  //     }
-  //   };
-  //   console.log(allStartup);
+
   const handleOnchange = (e) => {
     const industry = e.target.value;
     // console.log(productName);
@@ -131,16 +122,6 @@ const AllStartup = () => {
               </div>
             ))}
       </div>
-      {/* <div className="text-center my-10">
-        <button
-          className="btn btn-outline"
-          onClick={() => {
-            moreData();
-          }}
-        >
-          Load More
-        </button>
-      </div> */}
     </div>
   );
 };
