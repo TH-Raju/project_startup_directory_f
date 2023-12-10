@@ -5,11 +5,16 @@ import StartupModal from "../../../Components/startupModal";
 
 const AllStartup = () => {
   let [filterData, setFilterData] = useState([]);
+  const [load, setLoad] = useState(false);
   const { data: allStartup } = useQuery({
     queryKey: ["categoriyy"],
     queryFn: async () => {
+      setLoad(true);
       const res = await fetch("http://localhost:5000/api/v1/startup");
       const data = await res.json();
+      if (data) {
+        setLoad(false);
+      }
       return data?.getstartup;
     },
   });
@@ -54,9 +59,6 @@ const AllStartup = () => {
     <div>
       <h1 className="text-center text-3xl font-bold">List of All Startup </h1>
       <div className="my-4">
-        <h2 className="text-3xl text-center md:text-5xl font-bold mb-10">
-          All <span className="text-rose-700">Orders</span>
-        </h2>
         <span className="font-bold ml-4">Filter Data :</span>
         <select
           className="select select-primary ml-4 text-black"
@@ -79,6 +81,11 @@ const AllStartup = () => {
           </button>
         )}
       </div>
+      {load && (
+        <div className="text-center">
+          <span className="loading loading-bars loading-lg "></span>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {filterData.length > 0
           ? filterData?.slice(0, 2).map((startup) => (
@@ -119,7 +126,7 @@ const AllStartup = () => {
                 <p className="text-green-600 text-lg font-bold">
                   Funding Amount: ${startup.AmountInUSD}
                 </p>
-               
+
                 <StartupModal startup={startup} id={startup._id} />
               </div>
             ))}
