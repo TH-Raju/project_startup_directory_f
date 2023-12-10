@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import StartupModal from "../../../Components/startupModal";
 
 const AllStartup = () => {
   let [filterData, setFilterData] = useState([]);
@@ -47,7 +48,7 @@ const AllStartup = () => {
   const uniqueProductName = [
     ...new Set(allStartup?.map((order) => order?.IndustryVertical)),
   ];
-//   console.log(filterData);
+  //   console.log(filterData);
 
   return (
     <div>
@@ -84,6 +85,7 @@ const AllStartup = () => {
               <div
                 key={startup._id}
                 className="bg-white p-4 rounded-lg shadow-md"
+                onClick={() => document.getElementById(startup._id).showModal()}
               >
                 <h2 className="text-xl font-semibold mb-2">
                   {startup.StartupName}
@@ -102,7 +104,8 @@ const AllStartup = () => {
           : allStartup?.slice(0, 20).map((startup) => (
               <div
                 key={startup._id}
-                className="bg-white p-4 rounded-lg shadow-md"
+                className=" bg-white p-4 rounded-lg shadow-md"
+                onClick={() => document.getElementById(startup._id).showModal()}
               >
                 <h2 className="text-xl font-semibold mb-2">
                   {startup.StartupName}
@@ -116,6 +119,22 @@ const AllStartup = () => {
                 <p className="text-green-600 text-lg font-bold">
                   Funding Amount: ${startup.AmountInUSD}
                 </p>
+                <dialog id={startup._id} className="modal">
+                  <div className="modal-box">
+                    <form method="dialog">
+                      {/* if there is a button in form, it will close the modal */}
+                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                        ✕
+                      </button>
+                    </form>
+                    <h3 className="font-bold text-lg">Hello!</h3>
+                    <p className="py-4">
+                      {startup.StartupName}
+                      Press ESC key or click on ✕ button to close
+                    </p>
+                  </div>
+                </dialog>
+                <StartupModal startup={startup} id={startup._id} />
               </div>
             ))}
       </div>
