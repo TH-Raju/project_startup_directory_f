@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
-
+/* eslint-disable no-unused-vars */
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 const Navbar = () => {
+  const navigate = useNavigate();
   const menuItems = (
     <>
       <li>
@@ -15,6 +18,18 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const [searchValue, setSearchValue] = useState("");
+
+  const searchData = () => {
+    console.log(searchValue);
+    let data = searchValue.split("");
+    let upper = data.shift("").toUpperCase() + data.join("");
+    // console.log(upper);
+    navigate(`/search/${upper}`);
+    //logic to handle the search data here
+  };
+
   return (
     <div className="navbar bg-base-300">
       <div className="navbar-start">
@@ -42,18 +57,29 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link className="btn btn-ghost text-xl" to="/">
+          Startup-Directory
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
+        <div className="flex ">
+          <div>
+            <input
+              type="text"
+              placeholder="Search"
+              className="input input-bordered w-24 md:w-auto"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </div>
+          <div>
+            <button className="btn text-xs" onClick={searchData}>
+              Search
+            </button>
+          </div>
         </div>
       </div>
     </div>
