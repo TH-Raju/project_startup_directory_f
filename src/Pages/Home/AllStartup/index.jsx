@@ -6,7 +6,9 @@ import StartupModal from "../../../Components/startupModal";
 const AllStartup = () => {
   let [filterData, setFilterData] = useState([]);
   const [load, setLoad] = useState(false);
-  const { data: allStartup } = useQuery({
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(20);
+  const { data: allStartup, refetch } = useQuery({
     queryKey: ["categoriyy"],
     queryFn: async () => {
       setLoad(true);
@@ -46,8 +48,30 @@ const AllStartup = () => {
   ];
   //   console.log(filterData);
 
+  const pagi = () => {
+    if (end < allStartup?.length) {
+      setStart(start + 20);
+      setEnd(end + 20);
+      refetch();
+    } else {
+      setStart(0);
+      setEnd(20);
+    }
+  };
+
+  const pagiBack = () => {
+    if (start > 20) {
+      setStart(start - 20);
+      setEnd(end - 20);
+      refetch();
+    } else {
+      setStart(0);
+      setEnd(20);
+    }
+  };
+
   return (
-    <div>
+    <div className="mb-10">
       <h1 className="text-center text-3xl font-bold">All Startup </h1>
       <div className="my-4">
         <span className="font-bold ml-4">Filter Data :</span>
@@ -72,6 +96,19 @@ const AllStartup = () => {
           </button>
         )}
       </div>
+      <div className="flex justify-end gap-4 mb-2 mr-3 items-center">
+        {start > 1 && (
+          <button className="btn btn-sm btn-primary" onClick={() => pagiBack()}>
+            {"<"}
+          </button>
+        )}
+        <p>
+          {start} - {end < allStartup?.length ? end : allStartup?.length} ({allStartup?.length})
+        </p>
+        <button className="btn btn-sm btn-primary" onClick={() => pagi()}>
+          {">"}
+        </button>
+      </div>
       {load && (
         <div className="text-center">
           <span className="loading loading-bars loading-lg "></span>
@@ -79,7 +116,7 @@ const AllStartup = () => {
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {filterData.length > 0
-          ? filterData?.map((startup) => (
+          ? filterData?.slice(start, end).map((startup) => (
               <div
                 key={startup._id}
                 className="bg-white border border-sky-400 p-4 rounded-lg shadow-md"
@@ -99,7 +136,7 @@ const AllStartup = () => {
                 </p>
               </div>
             ))
-          : allStartup?.map((startup) => (
+          : allStartup?.slice(start, end).map((startup) => (
               <div
                 key={startup._id}
                 className=" bg-white p-4 border border-sky-400 rounded-lg shadow-md"
